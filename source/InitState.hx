@@ -5,6 +5,9 @@ import flixel.FlxG;
 import anima.sys.AnimaConfig;
 import flixel.FlxState;
 
+/**
+ * Class that initiates the setup for the game.
+ */
 class InitState extends FlxState {
 
     override function create() {
