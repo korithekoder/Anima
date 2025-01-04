@@ -34,7 +34,7 @@ class Main extends Sprite {
 	private final DRAW_FRAMERATE:Int = 60;
 
 	/**
-	 * SKIP the splash screen.
+	 * Skip the splash screen.
 	 */
 	private final SKIP_SPLASH_SCREEN:Bool = true;
 
