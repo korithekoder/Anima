@@ -1,7 +1,8 @@
 package anima.play;
 
+import anima.backend.ClientPrefs;
 import anima.components.sprite.AnimaSprite;
-import anima.data.Constants;
+import anima.backend.Constants;
 import anima.entity.player.Player;
 import flixel.FlxG;
 import flixel.FlxState;
@@ -14,6 +15,8 @@ class PlayState extends FlxState {
 	override public function create() {
 		super.create();
 		player = new Player(0, 0, 5, 0.25, Constants.PLAYER_ANIM_FRAMES);
+		trace(player.imageAssets.idle[0]);
+		player.loadGraphic(player.imageAssets.idle[0]);
 		bg = new AnimaSprite();
 		bg.loadGraphic("assets/images/lmfao.png");
 		bg.setXAndY(-640, 360);
@@ -26,11 +29,9 @@ class PlayState extends FlxState {
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (FlxG.keys.justPressed.SPACE) FlxG.sound.play("assets/sounds/player/interaction/player-hit.mp3");
-
-		if (FlxG.keys.pressed.W) player.changeY(player.speed);
-		if (FlxG.keys.pressed.A) player.changeX(-1 * player.speed);
-		if (FlxG.keys.pressed.S) player.changeY(-1 * player.speed);
-		if (FlxG.keys.pressed.D) player.changeX(player.speed);
+		if (FlxG.keys.anyPressed(ClientPrefs.controls.movement.up)) player.changeY(player.speed);
+		if (FlxG.keys.anyPressed(ClientPrefs.controls.movement.left)) player.changeX(-1 * player.speed);
+		if (FlxG.keys.anyPressed(ClientPrefs.controls.movement.down)) player.changeY(-1 * player.speed);
+		if (FlxG.keys.anyPressed(ClientPrefs.controls.movement.right)) player.changeX(player.speed);
 	}
 }
