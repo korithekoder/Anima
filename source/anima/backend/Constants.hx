@@ -1,11 +1,17 @@
 package anima.backend;
 
+import flixel.graphics.FlxGraphic;
 import flixel.input.keyboard.FlxKey;
 
 /**
  * Class for holding all of the values that don't change.
  */
 class Constants {
+
+    /**
+     * The ID for saving data for Anima.
+     */
+    public static final ANIMA_SAVE_BIND_ID:String = "anima";
     
     /**
      * The animation image pathways for the player.
@@ -35,6 +41,9 @@ class Constants {
             down: [FlxKey.S],
             up: [FlxKey.W],
             right: [FlxKey.D]
+        },
+        system: {
+            fullscreen: [FlxKey.F11]
         }
-    }
+    };
 }

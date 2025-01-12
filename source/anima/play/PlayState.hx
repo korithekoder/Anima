@@ -1,5 +1,6 @@
 package anima.play;
 
+import flixel.input.keyboard.FlxKey;
 import anima.backend.ClientPrefs;
 import anima.components.sprite.AnimaSprite;
 import anima.backend.Constants;
@@ -12,10 +13,21 @@ class PlayState extends FlxState {
 	private var player:Player;
 	private var bg:AnimaSprite;
 
+	var test:Dynamic = {
+        movement: {
+            left: [FlxKey.LEFT],
+            down: [FlxKey.DOWN],
+            up: [FlxKey.UP],
+            right: [FlxKey.RIGHT]
+        },
+        system: {
+            fullscreen: [FlxKey.F]
+        }
+    };
+
 	override public function create() {
 		super.create();
 		player = new Player(0, 0, 5, 0.25, Constants.PLAYER_ANIM_FRAMES);
-		trace(player.imageAssets.idle[0]);
 		player.loadGraphic(player.imageAssets.idle[0]);
 		bg = new AnimaSprite();
 		bg.loadGraphic("assets/images/lmfao.png");
@@ -33,5 +45,7 @@ class PlayState extends FlxState {
 		if (FlxG.keys.anyPressed(ClientPrefs.controls.movement.left)) player.changeX(-1 * player.speed);
 		if (FlxG.keys.anyPressed(ClientPrefs.controls.movement.down)) player.changeY(-1 * player.speed);
 		if (FlxG.keys.anyPressed(ClientPrefs.controls.movement.right)) player.changeX(player.speed);
+
+		if (FlxG.keys.justPressed.Y) ClientPrefs.controls = test;
 	}
 }

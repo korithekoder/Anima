@@ -1,8 +1,12 @@
 package;
 
+import flixel.util.FlxSave;
+import lime.app.Application;
+import openfl.events.Event;
+import flixel.input.keyboard.FlxKey;
+import openfl.events.KeyboardEvent;
 import anima.backend.ClientPrefs;
 import anima.backend.Constants;
-import flixel.util.FlxSave;
 import anima.play.PlayState;
 import flixel.FlxG;
 import anima.sys.AnimaConfig;
@@ -13,17 +17,45 @@ import flixel.FlxState;
  */
 class InitState extends FlxState {
 
+    static var animaSave:FlxSave = new FlxSave();
+
     override function create() {
         super.create();
-
-        // System configurations
-        initSysConfig();
 
         // Load the player's saves
         loadSaves();
 
+        // System configurations
+        initSysConfig();
+
+        // Create the threads and listeners needed to run in the
+        // background (i.e. fullscreen)
+        createThreadsListeners();
+
         // Start the play state
         FlxG.switchState(new PlayState());
+    }
+
+    private function loadSaves():Void {
+        animaSave.bind(Constants.ANIMA_SAVE_BIND_ID);
+
+        if (animaSave.data.controls_movement == null) {
+            animaSave.data.controls_movement = Constants.DEFAULT_CONTROLS.movement;
+            ClientPrefs.controls.movement = Constants.DEFAULT_CONTROLS.movement;
+        } else {
+            ClientPrefs.controls.movement = animaSave.data.controls_movement;
+        }
+        if (animaSave.data.controls_system == null) {
+            animaSave.data.controls_system = Constants.DEFAULT_CONTROLS.system;
+            ClientPrefs.controls.system = Constants.DEFAULT_CONTROLS.system;
+        } else {
+            ClientPrefs.controls.system = animaSave.data.controls_system;
+        }
+        if (animaSave.data.fullscreenState == null) {
+            animaSave.data.fullscreenState = false;
+        } else {
+            FlxG.fullscreen = animaSave.data.fullscreenState;
+        }
     }
 
     private function initSysConfig():Void {
@@ -31,23 +63,20 @@ class InitState extends FlxState {
         AnimaConfig.setupBaseSys();
     }
 
-    private function loadSaves():Void {
-        var controlsSave:FlxSave = new FlxSave();
-        controlsSave.bind("controls");
+    private function createThreadsListeners():Void {
+        // Fullscreen
+        FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, (event) -> {
+            if (FlxG.keys.anyJustPressed(ClientPrefs.controls.system.fullscreen)) {
+                FlxG.fullscreen = !FlxG.fullscreen;
+            }
+        });
 
-        // NOTE: THIS WILL NOT WORK
-        // TODO: fix later :p
-
-        // Check if the defaults exist
-        
-        // if (controlsSave.data.movement == null) {
-        //     ClientPrefs.controls.movement = Constants.DEFAULT_CONTROLS;
-        //     controlsSave.data.movement = Constants.DEFAULT_CONTROLS;
-        // } else {
-        //     ClientPrefs.controls.movement = controlsSave.data.movement;
-        // }
-
-        // trace(controlsSave.data.movement);
-        // controlsSave.close();
+        // On game close
+        Application.current.window.onClose.add(() -> {
+            animaSave.data.controls_movement = ClientPrefs.controls.movement;
+            animaSave.data.controls_system = ClientPrefs.controls.system;
+            animaSave.data.fullscreenState = FlxG.fullscreen;
+            trace(animaSave.flush());
+        });
     }
 }

@@ -8,5 +8,5 @@ class ClientPrefs {
     /**
      * Controls for the player.
      */
-    public static var controls:Dynamic = Constants.DEFAULT_CONTROLS;
+    public static var controls:Dynamic = {};
 }
