@@ -1,5 +1,6 @@
 package anima.play;
 
+import anima.backend.util.SaveUtil;
 import flixel.input.keyboard.FlxKey;
 import anima.backend.ClientPrefs;
 import anima.components.sprite.AnimaSprite;
@@ -47,5 +48,8 @@ class PlayState extends FlxState {
 		if (FlxG.keys.anyPressed(ClientPrefs.controls.movement.right)) player.changeX(player.speed);
 
 		if (FlxG.keys.justPressed.Y) ClientPrefs.controls = test;
+		if (FlxG.keys.justPressed.U) ClientPrefs.controls = Constants.DEFAULT_CONTROLS;
+		if (FlxG.keys.justPressed.O) SaveUtil.saveUserControls_All();
+		if (FlxG.keys.justPressed.P) SaveUtil.saveSystem_All();
 	}
 }

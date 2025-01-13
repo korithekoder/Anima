@@ -1,6 +1,6 @@
 package anima.backend;
 
-import flixel.graphics.FlxGraphic;
+import anima.backend.util.PathUtil;
 import flixel.input.keyboard.FlxKey;
 
 /**

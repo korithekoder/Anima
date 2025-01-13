@@ -1,4 +1,4 @@
-package anima.backend;
+package anima.backend.util;
 
 /**
  * Backend utility for shortening directories.
