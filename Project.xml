@@ -32,6 +32,10 @@
 	<set name="BUILD_DIR" value="export" />
 	<source path="source" />
 	<assets path="assets" />
+	<assets path="assets/music" include="*.mp3" if="html5" />
+	<assets path="assets/music" include="*.ogg" if="desktop" />
+	<assets path="assets/sounds" include="*.mp3" if="html5" />
+	<assets path="assets/sounds" include="*.ogg" if="desktop" />
 
 	<!-- _______________________________ Libraries ______________________________ -->
 

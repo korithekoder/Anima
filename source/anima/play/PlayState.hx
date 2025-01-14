@@ -1,5 +1,8 @@
 package anima.play;
 
+import flixel.system.FlxAssets.FlxSoundAsset;
+import anima.backend.util.PathUtil;
+import anima.components.Item;
 import anima.backend.util.SaveUtil;
 import flixel.input.keyboard.FlxKey;
 import anima.backend.ClientPrefs;
@@ -37,6 +40,8 @@ class PlayState extends FlxState {
 		bg.updateHitbox();
 		add(bg);
 		add(player);
+
+		FlxG.sound.playMusic(PathUtil.ofMusicAsset("menu", "Destiny"));
 	}
 
 	override public function update(elapsed:Float) {

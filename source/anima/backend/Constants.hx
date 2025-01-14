@@ -18,16 +18,16 @@ class Constants {
      */
     public static final PLAYER_ANIM_FRAMES:Dynamic = {
         idle: [
-            PathUtil.ofAnimImg("player", "idle/player-idle-1")
+            PathUtil.ofEntityImg("player", "idle/player-idle-1")
         ],
         walking: {
             left: [
-                PathUtil.ofAnimImg("player", "idle/player-walk-left-1")
+                PathUtil.ofEntityImg("player", "idle/player-walk-left-1")
             ],
             down: [],
             up: [],
             right: [
-                PathUtil.ofAnimImg("player", "idle/player-walk-right-1")
+                PathUtil.ofEntityImg("player", "idle/player-walk-right-1")
             ]
         }
     };

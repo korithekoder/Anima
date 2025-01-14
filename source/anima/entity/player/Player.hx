@@ -1,6 +1,6 @@
 package anima.entity.player;
 
-import anima.display.graph.AnimaGraph;
+import anima.components.Item;
 import anima.components.sprite.AnimaSprite;
 
 /**
@@ -55,6 +55,14 @@ class Player extends AnimaSprite {
     private var _strafeRightFrames:Array<String> = [];
 
     /**
+     * The player's inventory.
+     */
+    public var inventory(get, never):Dynamic;
+    private var _inventory:Dynamic = {
+        backpack: []
+    };
+
+    /**
      * The base speed of the player.
      */
     public var speed:Float;
@@ -86,5 +94,20 @@ class Player extends AnimaSprite {
     
     public function get_imageAssets():Dynamic {
         return _imageAssets;
+    }
+
+    public function get_inventory():Dynamic {
+        return _inventory;
+    }
+
+
+    /**
+     * Adds a new item in the player's inventory to the said location.
+     */
+    public function addNewInvItem(item:Item, location:String):Void {
+        switch (location) {
+            case ("backpack"):
+                this._inventory.backpack.push(item);
+        }
     }
 }

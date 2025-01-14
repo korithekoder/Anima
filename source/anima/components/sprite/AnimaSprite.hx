@@ -1,6 +1,6 @@
 package anima.components.sprite;
 
-import anima.display.graph.AnimaGraph;
+import anima.backend.AnimaGraph;
 import flixel.FlxG;
 import flixel.FlxSprite;
 
