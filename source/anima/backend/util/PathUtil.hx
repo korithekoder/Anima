@@ -34,4 +34,14 @@ class PathUtil {
     public static inline function ofMusicAsset(musicType:String, musicName:String):String {
         return "assets/music/" + musicType + "/" + musicName + #if html5 ".mp3" #else ".ogg" #end;
     }
+
+    /**
+     * Obtain and return a full pathway of an item image.
+     * @param musicType The type of music it is.
+     * @param musicName The name of the music.
+     * @return          The music pathway.
+     */
+     public static inline function ofSoundAsset(group:String, soundName:String):String {
+        return "assets/sounds/" + group + "/" + soundName + #if html5 ".mp3" #else ".ogg" #end;
+    }
 }

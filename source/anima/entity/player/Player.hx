@@ -1,6 +1,7 @@
 package anima.entity.player;
 
-import anima.components.Item;
+import anima.backend.exceptions.InvalidInventoryLocationException;
+import anima.components.item.Item;
 import anima.components.sprite.AnimaSprite;
 
 /**
@@ -56,10 +57,21 @@ class Player extends AnimaSprite {
 
     /**
      * The player's inventory.
+     * 
+     * ## Structure
+     * ```
+     * group: {  
+     *     size: 1,  
+     *     contents: []  
+     * }
+     * ```
      */
     public var inventory(get, never):Dynamic;
     private var _inventory:Dynamic = {
-        backpack: []
+        food: {
+            size: 5, // Size = amount of objects in the "contents" array
+            contents: []
+        }
     };
 
     /**
@@ -102,12 +114,17 @@ class Player extends AnimaSprite {
 
 
     /**
-     * Adds a new item in the player's inventory to the said location.
+     * Adds a new item in the player's inventory to the said location. If an invalid location is passed down, then an `InvalidInventoryLocationException` will be thrown.
+     * @param item     The item to be added.
+     * @param location The location 
      */
     public function addNewInvItem(item:Item, location:String):Void {
         switch (location) {
-            case ("backpack"):
-                this._inventory.backpack.push(item);
+            case ("food"):
+                if (!(this._inventory.food.contents.length >= this._inventory.food.size))
+                    this._inventory.food.contents.push(item);
+            default:
+                throw new InvalidInventoryLocationException("Attempted to put a new item in the player's inventory into invalid location: \"" + location + "\"");
         }
     }
 }

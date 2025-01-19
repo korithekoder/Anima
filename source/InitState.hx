@@ -1,14 +1,13 @@
 package;
 
-import anima.backend.util.SaveUtil;
-import lime.app.Application;
-import openfl.events.KeyboardEvent;
 import anima.backend.ClientPrefs;
 import anima.backend.Constants;
+import anima.backend.util.SaveUtil;
 import anima.play.PlayState;
 import flixel.FlxG;
-import anima.sys.AnimaConfig;
 import flixel.FlxState;
+import lime.app.Application;
+import openfl.events.KeyboardEvent;
 
 /**
  * Class that initiates the setup for the game.
@@ -18,15 +17,15 @@ class InitState extends FlxState {
     override function create() {
         super.create();
 
-        // Load the player's saves
-        loadSaves();
-
         // System configurations
         initSysConfig();
 
         // Create the threads and listeners needed to run in the
         // background (i.e. fullscreen)
         createThreadsListeners();
+
+        // Load the player's saves
+        loadSaves();
 
         // Start the play state
         FlxG.switchState(new PlayState());
@@ -54,8 +53,11 @@ class InitState extends FlxState {
     }
 
     private function initSysConfig():Void {
-        // Setup the base config
-        AnimaConfig.setupBaseSys();
+		// Use the dedicated system cursor
+		FlxG.mouse.useSystemCursor = true;
+
+		// Disable auto pause when the window isn't on focus
+		FlxG.autoPause = false;
     }
 
     private function createThreadsListeners():Void {
