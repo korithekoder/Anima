@@ -4,6 +4,12 @@ import flixel.FlxState;
 import flixel.FlxGame;
 import openfl.display.Sprite;
 
+/**
+ * The entry point for the entire game of Anima.
+ * Unless you want to make changes to the starting attributes,
+ * you will most likely not need to touch this file,
+ * as the actually setup for the game is in `InitState.hx`.
+ */
 class Main extends Sprite {
 
 	/**

@@ -1,9 +1,13 @@
 package;
 
+#if DISCORD_ALLOWED
+import anima.backend.DiscordClient;
+#end
+import anima.menu.IntroState;
+import flixel.system.FlxAssets;
 import anima.backend.ClientPrefs;
 import anima.backend.Constants;
 import anima.backend.util.SaveUtil;
-import anima.play.PlayState;
 import flixel.FlxG;
 import flixel.FlxState;
 import lime.app.Application;
@@ -20,15 +24,22 @@ class InitState extends FlxState {
         // System configurations
         initSysConfig();
 
-        // Create the threads and listeners needed to run in the
+        // Create the event listeners needed to run in the
         // background (i.e. fullscreen)
-        createThreadsListeners();
+        createEventListeners();
 
         // Load the player's saves
         loadSaves();
 
-        // Start the play state
-        FlxG.switchState(new PlayState());
+        // Initialize Discord Rich Presence
+        // This will only be initialized if the application's
+        // lime config type is desktop, otherwise it will be disabled
+        #if DISCORD_ALLOWED
+        DiscordClient.initClient();
+        #end
+
+        // Start the intro
+        FlxG.switchState(new IntroState());
     }
 
     private function loadSaves():Void {
@@ -58,9 +69,12 @@ class InitState extends FlxState {
 
 		// Disable auto pause when the window isn't on focus
 		FlxG.autoPause = false;
+
+        // Set the default font
+        FlxAssets.FONT_DEFAULT = "assets/font/yoster.ttf";
     }
 
-    private function createThreadsListeners():Void {
+    private function createEventListeners():Void {
         // Fullscreen
         FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, (event) -> {
             if (FlxG.keys.anyJustPressed(ClientPrefs.controls.system.fullscreen)) {

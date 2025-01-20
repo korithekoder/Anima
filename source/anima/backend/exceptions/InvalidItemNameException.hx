@@ -6,6 +6,6 @@ import haxe.Exception;
  * Exception that is used to throw if an item's ID has any characters other than:
  * - Lowercase Letters
  * - Numbers (1234567890)
- * - Underscores (_)
+ * - Dashes ("-")
  */
 class InvalidItemNameException extends Exception {}

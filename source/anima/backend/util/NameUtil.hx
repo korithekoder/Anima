@@ -7,7 +7,7 @@ import anima.backend.exceptions.InvalidItemNameException;
  */
 class NameUtil {
 
-    private static var validChars = "abcdefghijklmnopqrstuvwxyz1234567890_";
+    private static var validChars = "abcdefghijklmnopqrstuvwxyz1234567890-";
 
     /**
      * Check if the given name is valid under the Anima naming standards for Items, Entities, etc.

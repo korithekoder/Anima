@@ -44,11 +44,6 @@ class PlayState extends FlxState {
 		for (i in 0...5) {
 			player.addNewInvItem(Items.BREAD, "food");
 		}
-
-		// Startup sound and intro music
-        FlxG.sound.play(PathUtil.ofSoundAsset("startup", "startup"));
-        var introMusicCountdown:FlxTimer = new FlxTimer();
-		introMusicCountdown.start(4.0, (timer:FlxTimer) -> { FlxG.sound.playMusic(PathUtil.ofMusicAsset("menu", "Destiny")); });
 	}
 
 	override public function update(elapsed:Float) {

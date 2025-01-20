@@ -1,25 +1,16 @@
 ## Credits
 
-### Project Lead
-- korithekoder
+### Project Leader
+korithekoder
 
-### Programmers
-- korithekoder
-- jawlessmeteor5
+### Programer
+korithekoder
 
-### Co-Programmers
-- Ic3Buck3t
+### Artist
+VixenDraws
 
-### Artists
-- dedisgone
-- Larry
-- Sylvie
-- Ic3Buck3t
-- VixenDraws
+### Colorist
+CrazyMuffin
 
-### Concept Artists
-- CrazyMuffin
-- dedisgone
-
-### Composers
-- Basket
+### Composer
+Basket

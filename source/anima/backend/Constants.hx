@@ -12,22 +12,27 @@ class Constants {
      * The ID for saving data for Anima.
      */
     public static final ANIMA_SAVE_BIND_ID:String = "anima";
+
+	/**
+	 * The directory for the game's font.
+	 */
+	public static final ANIMA_MAIN_FONT:String = "assets/font/yoster.ttf";
     
     /**
      * The animation image pathways for the player.
      */
     public static final PLAYER_ANIM_FRAMES:Dynamic = {
         idle: [
-            PathUtil.ofEntityImg("player", "idle/player-idle-1")
+            PathUtil.ofImageAsset("player/idle/player-idle-1")
         ],
         walking: {
             left: [
-                PathUtil.ofEntityImg("player", "idle/player-walk-left-1")
+                PathUtil.ofImageAsset("player/idle/player-walk-left-1")
             ],
             down: [],
             up: [],
             right: [
-                PathUtil.ofEntityImg("player", "idle/player-walk-right-1")
+                PathUtil.ofImageAsset("player/idle/player-walk-right-1")
             ]
         }
     };

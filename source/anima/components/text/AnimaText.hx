@@ -1,6 +1,6 @@
 package anima.components.text;
 
-import anima.display.graph.AnimaGraph;
+import anima.backend.AnimaGraph;
 import flixel.FlxG;
 import flixel.text.FlxText;
 
@@ -15,7 +15,7 @@ class AnimaText extends FlxText {
      * @param y Y position to be set for the new AnimaText. Default value is `0`.
      * @param text The text to be displayed. Default value is an empty string.
      * @param size The size of the text. Default value is `8`.
-     * @param font The font of the text. Default value is the built in Galactify font.
+     * @param font The font of the text. Default value is the built in Anima font (or the default font, according to `FlxAssets`).
      */
     public function new(x:Float = 0, y:Float = 0, text:String = "", size:Int = 8, font:String = null) {
         super(AnimaGraph.x(x), AnimaGraph.y(y), text, size);
