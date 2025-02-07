@@ -1,4 +1,4 @@
-package anima.components.sprite;
+package anima.component.sprite;
 
 import anima.backend.AnimaGraph;
 import flixel.FlxG;

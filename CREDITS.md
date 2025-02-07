@@ -1,16 +1,19 @@
-## Credits
+# Credits
 
 ### Project Leader
-korithekoder
+- korithekoder
 
 ### Programer
-korithekoder
+- korithekoder
 
 ### Artist
-VixenDraws
+- VixenDraws
 
 ### Colorist
-CrazyMuffin
+- CrazyMuffin
 
 ### Composer
-Basket
+- Basket
+
+### Story
+- JawlessMeteor5

@@ -1,4 +1,4 @@
-package anima.components.text;
+package anima.component.text;
 
 import anima.backend.AnimaGraph;
 import flixel.FlxG;

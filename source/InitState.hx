@@ -39,28 +39,7 @@ class InitState extends FlxState {
         #end
 
         // Start the intro
-        FlxG.switchState(new IntroState());
-    }
-
-    private function loadSaves():Void {
-
-        if (FlxG.save.data.controls_movement == null) {
-            FlxG.save.data.controls_movement = Constants.DEFAULT_CONTROLS.movement;
-            ClientPrefs.controls.movement = Constants.DEFAULT_CONTROLS.movement;
-        } else {
-            ClientPrefs.controls.movement = FlxG.save.data.controls_movement;
-        }
-        if (FlxG.save.data.controls_system == null) {
-            FlxG.save.data.controls_system = Constants.DEFAULT_CONTROLS.system;
-            ClientPrefs.controls.system = Constants.DEFAULT_CONTROLS.system;
-        } else {
-            ClientPrefs.controls.system = FlxG.save.data.controls_system;
-        }
-        if (FlxG.save.data.fullscreenState == null) {
-            FlxG.save.data.fullscreenState = false;
-        } else {
-            FlxG.fullscreen = FlxG.save.data.fullscreenState;
-        }
+        FlxG.switchState(() -> new IntroState());
     }
 
     private function initSysConfig():Void {
@@ -87,5 +66,29 @@ class InitState extends FlxState {
             SaveUtil.saveUserControls_All();
             SaveUtil.saveSystem_All();
         });
+    }
+
+    private function loadSaves():Void {
+
+        // Movement controls
+        if (FlxG.save.data.controls_movement == null) {
+            FlxG.save.data.controls_movement = Constants.DEFAULT_CONTROLS.movement;
+            ClientPrefs.controls.movement = Constants.DEFAULT_CONTROLS.movement;
+        } else {
+            ClientPrefs.controls.movement = FlxG.save.data.controls_movement;
+        }
+        // System controls
+        if (FlxG.save.data.controls_system == null) {
+            FlxG.save.data.controls_system = Constants.DEFAULT_CONTROLS.system;
+            ClientPrefs.controls.system = Constants.DEFAULT_CONTROLS.system;
+        } else {
+            ClientPrefs.controls.system = FlxG.save.data.controls_system;
+        }
+        // Last fullscreen state
+        if (FlxG.save.data.fullscreenState == null) {
+            FlxG.save.data.fullscreenState = false;
+        } else {
+            FlxG.fullscreen = FlxG.save.data.fullscreenState;
+        }
     }
 }

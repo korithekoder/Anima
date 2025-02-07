@@ -1,4 +1,4 @@
-package anima.components.item;
+package anima.component.item;
 
 import anima.backend.exceptions.InvalidItemNameException;
 import anima.backend.util.NameUtil;
@@ -9,7 +9,8 @@ import anima.backend.util.NameUtil;
 class Item {
 
     /**
-	 * The ID of the item. It may only contain lowercase letters, underscores (_) and numbers. If it has any other kind of character, an `InvalidItemNameException` exception will be thrown. 
+	 * The ID of the item. It may only contain lowercase letters, dashes (`-`) and numbers. 
+     * If it has any other kind of character, an `InvalidItemNameException` exception will be thrown. 
      */
     public var id(get, never):String;
     private var _id:String;
@@ -34,18 +35,19 @@ class Item {
 
     /**
      * Constructor.
-     * @param id              The ID of the item. It may only contain lowercase letters, underscores and numbers. If it has any other kind of character, an `InvalidItemNameException` will be thrown.
-     * @param group           The group that the item will be registered in.
-     * @param canEntityObtain Determine if an entity (that is not the player) can pick `this` item up.
-     * @param maxStack        The maximum count that `this` item can stack up in a single inventory slot.
+     * @param id              The ID of the item. It may only contain lowercase letters, dashes (`-`) and numbers. If it has any other kind of character, an `InvalidItemNameException` will be thrown.
+     * @param group           The group that the new item will be registered in.
+     * @param canEntityObtain Determine if an entity (that is not the player) can pick `this` item up. Default value is `true`.
+     * @param maxStack        The maximum count that `this` item can stack up in a single inventory slot. Default value is `100`.
      */
     public function new(id:String, group:String, canEntityObtain:Bool = true, maxStack:Int = 100) {
+        // Check if the ID is valid
 		if (NameUtil.isValidName(id)) {
 			this._id = id;
         } else {
             throw new InvalidItemNameException(
                 "Item with attempted ID \"" + id + "\" contains invalid character(s)!\n" + 
-                "Items' IDs can only contain lowercase letters, numbers and underscores."
+                "Items' IDs can only contain lowercase letters, numbers and dashes."
             );
         }
         this._group = group;

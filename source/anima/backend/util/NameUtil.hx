@@ -10,7 +10,7 @@ class NameUtil {
     private static var validChars = "abcdefghijklmnopqrstuvwxyz1234567890-";
 
     /**
-     * Check if the given name is valid under the Anima naming standards for Items, Entities, etc.
+     * Check if the given name is valid under the Anima naming standards for items, entities, etc.
      * @param toCheck The name to be checked.
      * @return Whether or not the name is valid.
      */
