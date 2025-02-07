@@ -1,4 +1,4 @@
-package anima.components.item;
+package anima.component.item;
 
 import anima.backend.exceptions.InvalidItemNameException;
 import anima.backend.util.NameUtil;

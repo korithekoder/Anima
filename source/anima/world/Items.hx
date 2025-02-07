@@ -1,6 +1,6 @@
 package anima.world;
 
-import anima.components.item.FoodItem;
+import anima.component.item.FoodItem;
 
 /**
  * Class for storing all of the items of Anima.

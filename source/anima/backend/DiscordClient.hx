@@ -12,12 +12,12 @@ import sys.thread.Thread;
  */
 class DiscordClient {
 
-    private static var presence:DiscordRichPresence = new DiscordRichPresence();
+    private static var _presence:DiscordRichPresence = new DiscordRichPresence();
     private static var _clientId:String = "1330433524016222208";  // Client ID for the Discord application
 
     public static function initClient():Void {
         Discord.Initialize(_clientId, null, true, null);
-        presence.startTimestamp = Math.floor(Sys.time());
+        _presence.startTimestamp = Math.floor(Sys.time());
 
         Thread.create(() -> {
             while (true) {
@@ -29,15 +29,16 @@ class DiscordClient {
 
         Application.current.window.onClose.add(() -> {
             Discord.Shutdown();
+            trace("Shutdown Discord Rich presence successfully!");
         });
     }
 
-    public static function setPresence(details:String = "Exploring", state:String = "", largeImageKey:String):Void {
-        presence.details = details;
-        presence.state = state;
-        presence.largeImageKey = largeImageKey;
+    public static function setPresence(details:String = "Exploring", state:String = "", largeImageKey:String = ""):Void {
+        _presence.details = details;
+        _presence.state = state;
+        _presence.largeImageKey = largeImageKey;
 
-        Discord.UpdatePresence(RawConstPointer.addressOf(presence));
+        Discord.UpdatePresence(RawConstPointer.addressOf(_presence));
     }
 }
 #end
