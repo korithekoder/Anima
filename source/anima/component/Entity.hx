@@ -3,6 +3,7 @@ package anima.component;
 import anima.backend.exceptions.InvalidInventoryLocationException;
 import anima.component.item.Item;
 import anima.component.sprite.AnimaSprite;
+import haxe.ds.Map;
 
 /**
  * Class for creating living things in the world of Anima.
@@ -13,7 +14,7 @@ class Entity extends AnimaSprite {
      * JSON object containing the pathways for the `this` entity's animations.
      * 
      * ## Structure
-     * ```
+	 * ```json
      * {
      *   "idle": [
      *     "pathway/number/1",
@@ -57,23 +58,34 @@ class Entity extends AnimaSprite {
 
     /**
      * `this` entity's inventory.
-     * 
-     * `groupnameexample` is the group ID for the said items to be stored in.
-     * 
+	 * 
      * ## Structure
-     * ```
-     * groupnameexample: {  
-     *     size: 1,  
-     *     contents: []  
+	 * Every inventory slot is stored as an array, and in which that array has
+	 * a JSON object inside of it with details saying what item is in that slot and
+	 * how much of it is in the said slot.
+	 * 
+	 * ### Example
+	 * (`weight` = How many slots `this` entity has in their inventory.)
+	 * ```json
+	 * {
+	 *   "weight": 25,
+	 *   "contents": [
+	 *     {
+	 *       "item": "woah-an-item",
+	 *       "count": 5
+	 *     },
+	 *     {
+	 *       "item": "another-item-uwu",
+	 *       "count": 32
+	 *     }
+	 *   ]
      * }
      * ```
      */
     public var inventory(get, never):Dynamic;
-    private var _inventory:Dynamic = {
-        food: {
-            size: 5, // Size = amount of objects in the "contents" array
-            contents: []
-        }
+	private var _inventory:Dynamic = {
+        weight: 1,
+        contents: []
     };
 
     /**
@@ -134,19 +146,34 @@ class Entity extends AnimaSprite {
         return this._strafeRightFrames;
     }
 
+    public function setInventoryWeight(newWeight:Int):Void {
+        this._inventory.weight = newWeight;
+    }
+
     /**
-     * Adds a new item in the player's inventory to the said location. 
-     * If an invalid location is passed down, then an `InvalidInventoryLocationException` will be thrown.
-     * @param item     The item to be added.
-     * @param location The group ID that the item will be added in.
+	 * Adds a new item in the player's inventory to the said location.
+	 * @param item     The item to be added.
      */
-     public function addNewInvItem(item:Item, location:String):Void {
-        switch (location) {
-            case ("food"):
-                if (!(this._inventory.food.contents.length >= this._inventory.food.size))
-                    this._inventory.food.contents.push(item);
-            default:
-                throw new InvalidInventoryLocationException("Attempted to put a new item in the player's inventory into invalid location: \"" + location + "\"");
+	public function addItemToInventory(item:Item):Void {
+		// Loop through the inventory and search for a slot that
+		// has the same item in it
+		for (i in 0...this._inventory.contents.length) {
+			if (this._inventory.contents[i].item == item.get_id()) {
+				if (!(this._inventory.contents[i].count + 1 > item.get_maxStack())) {
+					this._inventory.contents[i].count++;
+					return;
+				}
+			}
+		}
+		// If the item wasn't found (or if the slot reached the maximum), 
+        // add a new slot (if it isn't over the weight)
+        if (!(this._inventory.contents.length + 1 > this._inventory.weight)) {
+            this._inventory.contents.push(
+                {
+                    item: item.get_id(),
+                    count: 1
+                }
+            );
         }
     }
 }

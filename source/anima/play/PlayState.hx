@@ -1,14 +1,14 @@
 package anima.play;
 
-import anima.world.Items;
-import anima.backend.util.SaveUtil;
-import flixel.input.keyboard.FlxKey;
 import anima.backend.ClientPrefs;
-import anima.component.sprite.AnimaSprite;
 import anima.backend.Constants;
+import anima.backend.util.SaveUtil;
+import anima.component.sprite.AnimaSprite;
 import anima.entity.player.Player;
+import anima.world.Items;
 import flixel.FlxG;
 import flixel.FlxState;
+import flixel.input.keyboard.FlxKey;
 
 class PlayState extends FlxState {
 
@@ -38,11 +38,18 @@ class PlayState extends FlxState {
 
 		_player = new Player(0, 0, 5, 0.25, Constants.PLAYER_ANIM_FRAMES);
 		_player.loadGraphic(_player.getIdleFrames()[0]);
+		_player.setInventoryWeight(5);
 		add(_player);
 
-		for (i in 0...5) {
-			_player.addNewInvItem(Items.BREAD, "food");
+		for (i in 0...65) {
+			_player.addItemToInventory(Items.BREAD);
 		}
+
+		for (i in 0...725) {
+			_player.addItemToInventory(Items.IDFK);
+		}
+
+		trace(_player.get_inventory());
 	}
 
 	override public function update(elapsed:Float) {
