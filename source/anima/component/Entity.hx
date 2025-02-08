@@ -1,9 +1,7 @@
 package anima.component;
 
-import anima.backend.exceptions.InvalidInventoryLocationException;
 import anima.component.item.Item;
 import anima.component.sprite.AnimaSprite;
-import haxe.ds.Map;
 
 /**
  * Class for creating living things in the world of Anima.
@@ -13,33 +11,33 @@ class Entity extends AnimaSprite {
     /**
      * JSON object containing the pathways for the `this` entity's animations.
      * 
-     * ## Structure
+     * ## Structure Example
 	 * ```json
      * {
      *   "idle": [
      *     "pathway/number/1",
-     *     "pathway/number/2"
+     *     "pathway/number/2",
      *     "etc..."
      *   ],
      *   "walking": {
      *     "left": [
      *       "pathway/number/1",
-     *       "pathway/number/2"
+     *       "pathway/number/2",
      *       "etc..."
      *     ],
      *     "down": [
      *       "pathway/number/1",
-     *       "pathway/number/2"
+     *       "pathway/number/2",
      *       "etc..."
      *     ],
      *     "up": [
      *       "pathway/number/1",
-     *       "pathway/number/2"
+     *       "pathway/number/2",
      *       "etc..."
      *     ],
      *     "right": [
      *       "pathway/number/1",
-     *       "pathway/number/2"
+     *       "pathway/number/2",
      *       "etc..."
      *     ]
      *   }
@@ -57,14 +55,12 @@ class Entity extends AnimaSprite {
     private var _strafeRightFrames:Array<String> = [];
 
     /**
-     * `this` entity's inventory.
-	 * 
-     * ## Structure
-	 * Every inventory slot is stored as an array, and in which that array has
+     * The contents of `this` entity's inventory.
+     * 
+     * Every inventory slot is stored as an array, and in which that array has
 	 * a JSON object inside of it with details saying what item is in that slot and
 	 * how much of it is in the said slot.
-	 * 
-	 * ### Example
+     *
 	 * (`weight` = How many slots `this` entity has in their inventory.)
 	 * ```json
 	 * {
@@ -152,13 +148,16 @@ class Entity extends AnimaSprite {
 
     /**
 	 * Adds a new item in the player's inventory to the said location.
-	 * @param item     The item to be added.
+	 * @param item The item to be added.
      */
 	public function addItemToInventory(item:Item):Void {
 		// Loop through the inventory and search for a slot that
 		// has the same item in it
 		for (i in 0...this._inventory.contents.length) {
+            // Check if the current checked item is the wanted one
 			if (this._inventory.contents[i].item == item.get_id()) {
+                // If the incremented amount is not over the current amount, then
+                // add one to the amount of the said item
 				if (!(this._inventory.contents[i].count + 1 > item.get_maxStack())) {
 					this._inventory.contents[i].count++;
 					return;
@@ -174,6 +173,29 @@ class Entity extends AnimaSprite {
                     count: 1
                 }
             );
+        }
+    }
+
+    /**
+     * Removes an item from `this` entity's inventory.
+     * @param item The item to be removed.
+     */
+    public function removeItemFromInventory(item:Item):Void {
+        // Loop through the inventory and search for the slot
+        // with the said item in it
+        for (i in 0...this._inventory.contents.length) {
+            // Check if the current checked item is the wanted one
+            if (this._inventory.contents[i].item == item.get_id()) {
+                // If so, deduct the said amount
+				this._inventory.contents[i].count--;
+                // If there are no more items in the said slot,
+                // delete the slot to save memory
+                if (this._inventory.contents[i].count <= 0) {
+                    this._inventory.contents.splice(i, 1);
+                }
+                // Exit out of the function since the said item is already found
+                return;
+			}
         }
     }
 }

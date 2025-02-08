@@ -1,6 +1,9 @@
 package anima.backend.util;
 
 /**
- * Class that holds temporary data.
+ * Class that holds temporary, random general data.
  */
-class CacheUtil {}
+class CacheUtil {
+
+    public static var lastVolumeUsed:Float = 1.0;
+}

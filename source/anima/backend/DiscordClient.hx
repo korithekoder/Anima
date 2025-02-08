@@ -29,7 +29,7 @@ class DiscordClient {
 
         Application.current.window.onClose.add(() -> {
             Discord.Shutdown();
-            trace("Shutdown Discord Rich presence successfully!");
+            trace("Shutdown Discord rich presence successfully!");
         });
     }
 

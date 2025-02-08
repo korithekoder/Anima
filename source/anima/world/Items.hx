@@ -8,6 +8,6 @@ import anima.component.item.FoodItem;
  */
 class Items {
     
-    public static final IDFK:Item = new Item("idfk", "food", true, 250);
+    public static final IDFK:Item = new Item("idfk", "food", true, 250);  // Oh, what's this? An easter egg??? Naw, totally don't type PiggyG on the screen and see what happens!
     public static final BREAD:FoodItem = new FoodItem("bread", "food", true, 100, 20.0);
 }
