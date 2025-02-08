@@ -5,6 +5,9 @@ package anima.component.item;
  */
 class FoodItem extends Item {
     
+    /**
+     * The amount of hunger that `this` food item gives you upon consumption.
+     */
     public var hungerBoost:Float;
 
     /**

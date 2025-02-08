@@ -9,10 +9,11 @@ import anima.component.sprite.AnimaSprite;
 class Entity extends AnimaSprite {
     
     /**
-     * JSON object containing the pathways for the `this` entity's animations.
+     * JSON object containing the pathways for `this` entity's animations.
      * 
      * ## Structure Example
-	 * ```json
+     * 
+     * ```json
      * {
      *   "idle": [
      *     "pathway/number/1",
@@ -57,24 +58,25 @@ class Entity extends AnimaSprite {
     /**
      * The contents of `this` entity's inventory.
      * 
-     * Every inventory slot is stored as an array, and in which that array has
-	 * a JSON object inside of it with details saying what item is in that slot and
-	 * how much of it is in the said slot.
-     *
-	 * (`weight` = How many slots `this` entity has in their inventory.)
-	 * ```json
-	 * {
-	 *   "weight": 25,
-	 *   "contents": [
-	 *     {
-	 *       "item": "woah-an-item",
-	 *       "count": 5
-	 *     },
-	 *     {
-	 *       "item": "another-item-uwu",
-	 *       "count": 32
-	 *     }
-	 *   ]
+     * `weight` = The amount of slots that `this` entity's inventory can hold.  
+     * `contents` = JSON objects that hold what kind of item is in the slot (by its ID) and
+     * how much of that item is in the said slot.  
+     * 
+     * ## Structure
+     * 
+     * ```json
+     * {
+     *   "weight": 25,
+     *   "contents": [
+     *     {
+     *       "item": "woah-an-item",
+     *       "count": 5
+     *     },
+     *     {
+     *       "item": "another-item-uwu",
+     *       "count": 32
+     *     }
+     *   ]
      * }
      * ```
      */
