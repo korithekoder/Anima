@@ -41,12 +41,16 @@ class PlayState extends FlxState {
 		_player.setInventoryWeight(5);
 		add(_player);
 
-		for (i in 0...65) {
+		for (_ in 0...65) {
 			_player.addItemToInventory(Items.BREAD);
 		}
 
-		for (i in 0...725) {
+		for (_ in 0...725) {
 			_player.addItemToInventory(Items.IDFK);
+		}
+
+		for (_ in 0...700) {
+			_player.removeItemFromInventory(Items.IDFK);
 		}
 
 		trace(_player.get_inventory());

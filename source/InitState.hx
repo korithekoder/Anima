@@ -1,5 +1,6 @@
 package;
 
+import anima.backend.util.CacheUtil;
 #if DISCORD_ALLOWED
 import anima.backend.DiscordClient;
 #end
@@ -24,12 +25,12 @@ class InitState extends FlxState {
         // System configurations
         initSysConfig();
 
+        // Load the player's saves
+        loadSaves();
+
         // Create the event listeners needed to run in the
         // background (i.e. fullscreen)
         createEventListeners();
-
-        // Load the player's saves
-        loadSaves();
 
         // Initialize Discord Rich Presence
         // This will only be initialized if the application's
@@ -61,6 +62,15 @@ class InitState extends FlxState {
             }
         });
 
+        // When the game loses focus
+        Application.current.window.onFocusIn.add(() -> {
+            FlxG.sound.volume = CacheUtil.lastVolumeUsed;
+        });
+        Application.current.window.onFocusOut.add(() -> {
+            CacheUtil.lastVolumeUsed = FlxG.sound.volume;
+            FlxG.sound.volume = 0.1;
+        });
+
         // On game close
         Application.current.window.onClose.add(() -> {
             SaveUtil.saveUserControls_All();
@@ -69,7 +79,6 @@ class InitState extends FlxState {
     }
 
     private function loadSaves():Void {
-
         // Movement controls
         if (FlxG.save.data.controls_movement == null) {
             FlxG.save.data.controls_movement = Constants.DEFAULT_CONTROLS.movement;
